@@ -44,7 +44,29 @@ class IntegrationTest(TestCase):
         response = self.client.get(reverse('student_dashboard'))
         self.assertEqual(response.status_code, 200)  # Should return the dashboard
 
-    def test_payment_integration(self):
+    def test_end_to_end_registration_integration(self):
+        # Test the full registration process including login and dashboard access
+        response = self.client.post(reverse('register_student'), {
+            'username': 'testuser5',
+            'password1': 'testpassword123',
+            'password2': 'testpassword123',
+            'full_name': 'Test User 5',
+            'date_of_birth': '2000-01-01',
+            'contact_info': '1234567890',
+            'address': 'Test Address 5',
+            'gender': 'M',
+            'emergency_contact': '0987654321'
+        })
+        self.assertEqual(response.status_code, 302)  # Redirect after successful registration
+        self.assertTrue(get_user_model().objects.filter(username='testuser5').exists())
+
+        # Log in the newly registered user
+        self.client.login(username='testuser5', password='testpassword123')
+        response = self.client.get(reverse('student_dashboard'))
+        self.assertEqual(response.status_code, 200)  # Should return the dashboard
+
+    def test_webhook_integration(self):
+
         # Test the payment process (mocked)
         self.client.login(username='testuser', password='testpassword123')  # Ensure user is logged in
         response = self.client.post(reverse('chapa_payment'), {

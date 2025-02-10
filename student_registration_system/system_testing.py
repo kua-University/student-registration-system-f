@@ -46,7 +46,28 @@ class SystemTesting(TestCase):
         response = self.client.get(reverse('student_dashboard'))
         self.assertEqual(response.status_code, 200)  # Should return the dashboard
 
-    def test_payment_page_access(self):
+    def test_successful_user_logout(self):
+        # Test that a user can log out successfully
+        self.client.login(username='testuser', password='testpassword123')
+        response = self.client.post(reverse('logout'))
+        self.assertEqual(response.status_code, 302)  # Should redirect after logout
+        self.assertNotIn('_auth_user_id', self.client.session)  # User should be logged out
+
+    def test_profile_page_access(self):
+        # Test that a logged-in user can access their profile page
+        self.client.login(username='testuser', password='testpassword123')
+        response = self.client.get(reverse('profile'))  # Assuming 'profile' is the URL name for the profile view
+        self.assertEqual(response.status_code, 200)  # Should return a successful response
+
+    def test_invalid_login_attempt(self):
+        # Test that invalid login attempts are handled correctly
+        response = self.client.post(reverse('login'), {
+            'username': 'wronguser',
+            'password': 'wrongpassword'
+        })
+        self.assertEqual(response.status_code, 200)  # Should return to the login form
+        self.assertContains(response, 'Invalid credentials')  # Check for error message
+
         self.client.login(username='testuser', password='testpassword123')
         response = self.client.get(reverse('chapa_payment'))
         self.assertEqual(response.status_code, 200)  # Should return the payment page
