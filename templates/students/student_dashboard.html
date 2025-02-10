@@ -3,4 +3,12 @@
 <h2>Welcome, {{ student.full_name }}</h2>
 <p>Student ID: {{ student.student_id }}</p>
 <p>Registration Status: {% if student.registration_status %}Completed{% else %}Pending{% endif %}</p>
+{%if not student.registration_status %} <a href="{% url 'chapa_payment' %}" class="btn btn-primary">Proceed to
+    Payment</a> {% endif %}
+{% if student.registration_status %}
+<p>Your payment has been successfully completed!</p>
+{% endif %}
+
+
+
 {% endblock %}
