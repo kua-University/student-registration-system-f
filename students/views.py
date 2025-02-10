@@ -105,9 +105,27 @@ def login_user(request):
     return render(request, 'students/login.html')
 
 @login_required
+def home(request):
+    return render(request, 'students/home.html')
+
+@login_required
+def profile(request):
+    student = Student.objects.get(user=request.user)
+    return render(request, 'students/profile.html', {'student': student})
+
+@login_required
+def settings(request):
+    return render(request, 'students/settings.html')
+
+def logout_user(request):
+    logout(request)
+    return redirect('landing_page')
+
+@login_required
 def student_dashboard(request):
     student = Student.objects.get(user=request.user)
     return render(request, 'students/student_dashboard.html', {'student': student})
+
 
 @login_required
 def admin_dashboard(request):

@@ -1,14 +1,95 @@
 {% extends 'base.html' %}
 {% block content %}
+<nav>
+    <div class="d-flex justify-content-between align-items-center">
+        <h1 class="logo">SRS</h1>
+        <ul class="nav nav-pills ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'settings' %}">Settings</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link btn btn-danger" href="{% url 'logout' %}">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<style>
+    body {
+        background-color: #f0f8ff;
+        /* Light blue background */
+    }
+
+    .nav {
+        width: 100%;
+        /* Full width */
+        padding: 10px 0;
+        /* Vertical padding */
+    }
+
+    .nav-link {
+        background-color: #007bff;
+        /* Bootstrap primary color */
+        color: white;
+        /* White text */
+        border-radius: 5px;
+        /* Rounded corners */
+        margin-right: 10px;
+        /* Space between links */
+        padding: 10px 15px;
+        /* Padding for better click area */
+    }
+
+    .nav-link:hover {
+        background-color: #0056b3;
+        /* Darker blue on hover */
+        color: #fff;
+        /* Ensure text remains white */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        /* Add shadow on hover */
+    }
+</style>
+
 <h2>Welcome, {{ student.full_name }}</h2>
 <p>Student ID: {{ student.student_id }}</p>
 <p>Registration Status: {% if student.registration_status %}Completed{% else %}Pending{% endif %}</p>
-{%if not student.registration_status %} <a href="{% url 'chapa_payment' %}" class="btn btn-primary">Proceed to
+{% if not student.registration_status %} <a href="{% url 'chapa_payment' %}" class="btn btn-primary">Proceed to
     Payment</a> {% endif %}
 {% if student.registration_status %}
-<p>Your payment has been successfully completed!</p>
+<p>Here is your today's session!</p>
+
+<div class="row">
+    <div class="col-md-6">
+        <iframe width="100%" height="240" src="https://www.youtube.com/embed/YYXdXT2l-Gg" frameborder="0"
+            allowfullscreen></iframe>
+        <h3>Python for Beginners</h3>
+        <p>Subject: Build a Powerful software with python.</p>
+    </div>
+    <div class="col-md-6">
+        <iframe width="100%" height="240" src="https://www.youtube.com/embed/1Rs2ND1ryYc" frameborder="0"
+            allowfullscreen></iframe>
+        <h3>CSS Tutorial</h3>
+        <p>Subject: Zero to Hero CSS</p>
+    </div>
+    <div class="col-md-6">
+        <iframe width="100%" height="240" src="https://www.youtube.com/embed/UB1O30fR-EE" frameborder="0"
+            allowfullscreen></iframe>
+        <h3>HTML Basics</h3>
+        <p>Subject: Introduction to HTML</p>
+    </div>
+    <div class="col-md-6">
+        <iframe width="100%" height="240" src="https://www.youtube.com/embed/fYq5PXgSsbE" frameborder="0"
+            allowfullscreen></iframe>
+        <h3>CSS Flexbox</h3>
+        <p>Subject: Mastering Flexbox</p>
+    </div>
+</div>
+
 {% endif %}
-
-
-
 {% endblock %}

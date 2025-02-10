@@ -4,6 +4,11 @@ from .views import login_user  # Import the login_user view
 
 
 urlpatterns = [
+    path('home/', views.home, name='home'),
+    path('profile/', views.profile, name='profile'),
+    path('settings/', views.settings, name='settings'),
+    path('logout/', views.logout_user, name='logout'),
+
     
     
     path('register/', views.register_student, name='register_student'),
