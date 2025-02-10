@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Complete Your Registration</h2>
+<p>Total Amount: 100 ETB</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">Pay with Chapa</button>
+</form>
+{% endblock %}

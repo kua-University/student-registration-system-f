@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Welcome, {{ student.full_name }}</h2>
+<p>Student ID: {{ student.student_id }}</p>
+<p>Registration Status: {% if student.registration_status %}Completed{% else %}Pending{% endif %}</p>
+{% endblock %}

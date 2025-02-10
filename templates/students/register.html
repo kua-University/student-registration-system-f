@@ -1,0 +1,17 @@
+{% extends '../base.html' %}
+{% block content %}
+<div class="container">
+    <h2>Student Registration</h2>
+    <p>Please fill in the details below to register as a student.</p>
+
+    <form method="post" class="form-horizontal">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg">Register</button>
+        <p>Already have an account? <a href="{% url 'login' %}">Login here</a>.</p>
+    </form>
+</div>
+
+{% endblock %}
